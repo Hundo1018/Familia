@@ -6,6 +6,7 @@ public class HomeBeastController : MonoBehaviour
 {
     [SerializeField] private CircleCollider2D _collider2D;
     [SerializeField] private Rigidbody2D _rigidbody2D;
+    [SerializeField] private PlayerController _playerController;
     // Start is called before the first frame update
     void Start()
     {

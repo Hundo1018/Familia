@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public class InputManager : MonoBehaviourSingletonPersistent<InputManager>
 {
     public event Action<Vector2> TouchBegan;
