@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public interface IPool
 {
-    public GameObject Get(IPool pool, params object[] initParams);
+    public GameObject Get( params object[] initParams);
 
     public void Release(GameObject element);
 

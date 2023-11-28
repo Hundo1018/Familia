@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnemyController : MonoBehaviour, IReusable
+public class AnemyController : MonoBehaviourEntity, IReusable
 {
     private AnemyPool _anemyGenerator;
     [SerializeField] private GameObject _target;
@@ -23,12 +23,11 @@ public class AnemyController : MonoBehaviour, IReusable
     void Chase()
     {
         transform.position = Vector2.MoveTowards(transform.position, _target.transform.position, _speed * Time.deltaTime);
+        // transform.rotation.SetLookRotation(,)
     }
 
-    public void Die()
-    {
-        _anemyGenerator.Release(gameObject);
-    }
+    public void Die() => _anemyGenerator.Release(gameObject);
+
 
     /// <summary>
     /// 建構子
@@ -44,10 +43,8 @@ public class AnemyController : MonoBehaviour, IReusable
 
 
 
-    public IPool GetPool()
-    {
-        return _anemyGenerator;
-    }
+    public IPool GetPool() => _anemyGenerator;
+
 
     public void Release() => _anemyGenerator.Release(gameObject);
 
@@ -62,5 +59,10 @@ public class AnemyController : MonoBehaviour, IReusable
         Init((Vector2)args[0], (GameObject)args[1]);
     }
 
-    
+    public override void Hitted(EffectPacket effectPacket)
+    {
+        Debug.Log($"{gameObject.name} Hitted by {effectPacket.Source.name}");
+        HP -= effectPacket.Damage;
+        if (HP <= 0) Release();
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HomeBeastController : MonoBehaviour
+public class HomeBeastController : MonoBehaviourEntity
 {
     [SerializeField] private CircleCollider2D _collider2D;
     [SerializeField] private Rigidbody2D _rigidbody2D;
@@ -10,19 +10,21 @@ public class HomeBeastController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        InputManager.Instance.NormalizedMoved += onMove;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    private void OnCollisionEnter2D(Collision2D other) {
-        other.gameObject.GetComponent<AnemyController>().Die();
+
+    public override void Hitted(EffectPacket effectPacket)
+    {
     }
-    private void OnTriggerEnter2D(Collider2D other) {
-        other.gameObject.GetComponent<AnemyController>().Die();
-        
+
+    void onMove(Vector2 vector2)
+    {
+        // transform.Translate(vector2);
     }
 }

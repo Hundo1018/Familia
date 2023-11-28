@@ -25,7 +25,7 @@ public class AnemyPool : MonoBehaviourPool<AnemyController>
         for (int i = 0; i < amount; i++)
         {
             Vector2 position = (Vector2)transform.position + Random.insideUnitCircle * _circleRange.radius;
-            Get(this, position, _target);
+            Get( position, _target);
         }
         //生成後時間歸零
         _startTime = (int)Time.time;

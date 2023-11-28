@@ -3,11 +3,11 @@ using UnityEngine;
 
 /// <summary>
 /// 物件池抽象類別，處理Get Release與Clear
-/// 因此子類別只需要實現使用這些函式的時機
+/// 因此子類別只需要實現使用這些函式的時機與適當的建構式多載
 /// </summary>
 /// <typeparam name="T">可複用物件的Controller</typeparam>
 public abstract class MonoBehaviourPool<T> : MonoBehaviour, IPool
-    where T : IReusable
+    where T : Component, IReusable
 {
     public GameObject _prefab;
     protected Stack<GameObject> _pooled = new();
@@ -25,8 +25,7 @@ public abstract class MonoBehaviourPool<T> : MonoBehaviour, IPool
             Destroy(_pooled.Pop().gameObject);
         }
     }
-
-    public GameObject Get(IPool pool, params object[] initParams)
+    public GameObject Get(params object[] initParams)
     {
         T controller;
         //重點是controller
@@ -38,7 +37,7 @@ public abstract class MonoBehaviourPool<T> : MonoBehaviour, IPool
 
         controller = instance.GetComponent<T>();
         //設定初始值
-        controller.Initialize(pool, initParams);
+        controller.Initialize(this, initParams);
         // instance
         instance.SetActive(true);
         return instance;
