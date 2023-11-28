@@ -780,7 +780,7 @@ MonoBehaviour:
   _circleRange: {fileID: 1523034422}
   _maxBatchSize: 3
   _maxSize: 50
-  _interval: 1
+  _interval: 0.5
 --- !u!1 &1859121864
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,7 +849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5224383665453615306, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 5224383665453615306, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
       propertyPath: m_LocalPosition.z

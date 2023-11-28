@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -11,29 +12,43 @@ public abstract class MonoBehaviourPool<T> : MonoBehaviour, IPool
 {
     public GameObject _prefab;
     protected Stack<GameObject> _pooled = new();
+    public int CountActive { get; private set; }
+    public int CountAll { get; private set; }
+    public int CountInactive { get; private set; }
+
 
     public void Release(GameObject element)
     {
-        element.gameObject.SetActive(false);
+        element.SetActive(false);
         _pooled.Push(element);
+        CountInactive++;
+        CountActive--;
     }
 
     public void Clear()
     {
         while (_pooled.Count > 0)
         {
-            Destroy(_pooled.Pop().gameObject);
+            Destroy(_pooled.Pop());
         }
+        CountAll = 0;
+        CountActive = 0;
+        CountInactive = 0;
     }
     public GameObject Get(params object[] initParams)
     {
+        //重點是相關型別的controller
         T controller;
-        //重點是controller
         if (!_pooled.TryPop(out GameObject instance))
         {
             instance = Instantiate(_prefab);
             instance.transform.SetParent(transform);
+            CountAll++;
         }
+        else
+            CountInactive--;
+
+        CountActive++;
 
         controller = instance.GetComponent<T>();
         //設定初始值

@@ -10,18 +10,18 @@ public class AnemyPool : MonoBehaviourPool<AnemyController>
     [SerializeField] private CircleCollider2D _circleRange;
     [SerializeField] private int _maxBatchSize;
     [SerializeField] private int _maxSize;
-    [SerializeField] private int _interval;
+    [SerializeField] private float _interval;
     private float _startTime;
 
     // Update is called once per frame
     void Update()
     {
-        int currentTime = (int)Time.time;
+        float currentTime = Time.time;
         //時間未到
         if (currentTime - _startTime <= _interval)
             return;
         //太多別生
-        if(_pooled.Count>=_maxSize)
+        if (CountActive >= _maxSize)
             return;
         //時間到了可以檢查是否要生成，若生成則重新計時
         int amount = Random.Range(1, _maxBatchSize);
