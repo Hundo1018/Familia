@@ -1,9 +1,6 @@
 using System;
 using UnityEngine;
 
-/// <summary>
-/// 
-/// </summary>
 public class InputManager : MonoBehaviourSingletonPersistent<InputManager>
 {
     public event Action<Vector2> TouchBegan;
@@ -11,8 +8,7 @@ public class InputManager : MonoBehaviourSingletonPersistent<InputManager>
     public event Action<Vector2> TouchOffsetMoved;
     public event Action<Vector2> TouchStationary;
     public event Action<Vector2> TouchEnded;
-    public event Action<Vector2> NormalizedMoved;
-
+    public event Action<Vector2> NormalizedStickMoved;
     private Touch _touch = new();
     private Vector2 _offset = new();
     // Start is called before the first frame update
@@ -25,7 +21,9 @@ public class InputManager : MonoBehaviourSingletonPersistent<InputManager>
     {
         DetectTouch();
     }
-
+    public void OnUIAxisChanged(Vector2 vector2){
+        NormalizedStickMoved?.Invoke(vector2);
+    }
     private void DetectTouch()
     {
         if (Input.touchCount == 0)
@@ -35,7 +33,7 @@ public class InputManager : MonoBehaviourSingletonPersistent<InputManager>
         var first = _touch.position;
         _offset += _touch.deltaPosition;
         var current = first + _offset;
-
+        // Debug.Log($"f:{first},o:{_offset},c:{current}");
         switch (_touch.phase)
         {
             case TouchPhase.Began:
@@ -44,8 +42,6 @@ public class InputManager : MonoBehaviourSingletonPersistent<InputManager>
             case TouchPhase.Moved:
                 TouchOffsetMoved?.Invoke(_offset);
                 TouchMoved?.Invoke(current);
-                //TODO:令其功能類似getaxis
-                NormalizedMoved?.Invoke(current/current.magnitude);
                 break;
             case TouchPhase.Stationary:
                 TouchStationary?.Invoke(current);

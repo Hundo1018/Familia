@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class UIController : MonoBehaviour
 {
+    public event Action<Vector2> AxisChanged;
+
     [SerializeField] private RectTransform _stickField;
     [SerializeField] private RectTransform _stick;
     // Start is called before the first frame update
@@ -12,6 +16,7 @@ public class UIController : MonoBehaviour
         InputManager.Instance.TouchBegan += OnTouchBegan;
         InputManager.Instance.TouchEnded += OnTouchEnded;
         InputManager.Instance.TouchOffsetMoved += OnTouchOffsetMoved;
+        AxisChanged += InputManager.Instance.OnUIAxisChanged;
     }
 
     // Update is called once per frame
@@ -28,15 +33,31 @@ public class UIController : MonoBehaviour
     }
     void OnTouchOffsetMoved(Vector2 vector2)
     {
-        //XXX:這裡應該使用localPosition與Field邊界範圍來設定
-        //HACK:這是硬算的 因為圖片40*40
-        var temp = Mathf.Pow(_stickField.rect.height, 2) / 1000;
-        vector2 = Vector2.ClampMagnitude(vector2,temp);
+        if (vector2.magnitude == 0)
+        {
+            AxisChanged?.Invoke(Vector2.zero);
+            return;
+        }
+        var fieldRadius = _stickField.rect.height / 2;
+        vector2 = Vector2.ClampMagnitude(vector2, fieldRadius);
         _stick.localPosition = vector2;
+        var v = vector2 / vector2.magnitude;
+        AxisChanged?.Invoke(v);
+
     }
     void OnTouchEnded(Vector2 vector2)
     {
         _stick.localPosition = Vector3.zero;
         _stickField.gameObject.SetActive(false);
+        OnTouchOffsetMoved(Vector2.zero);
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.TouchBegan -= OnTouchBegan;
+        InputManager.Instance.TouchEnded -= OnTouchEnded;
+        InputManager.Instance.TouchOffsetMoved -= OnTouchOffsetMoved;
+        AxisChanged -= InputManager.Instance.OnUIAxisChanged;
+
     }
 }

@@ -62,7 +62,7 @@ public class Projectile : MonoBehaviour, IReusable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name);
+        //確定有繼承Entity，以及非友軍才繼續
         if (!other.TryGetComponent(out MonoBehaviourEntity component) ||
         component.Alignments == _effectPacket.Source.Alignments)
             return;

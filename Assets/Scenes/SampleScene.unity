@@ -655,7 +655,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 174, y: -812}
-  m_SizeDelta: {x: 400, y: 400}
+  m_SizeDelta: {x: 320, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1362750383
 MonoBehaviour:
@@ -779,6 +779,7 @@ MonoBehaviour:
   _target: {fileID: 1885107564}
   _circleRange: {fileID: 1523034422}
   _maxBatchSize: 3
+  _maxSize: 50
   _interval: 1
 --- !u!1 &1859121864
 GameObject:
@@ -885,6 +886,10 @@ PrefabInstance:
     - target: {fileID: 6386128959240366748, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
       propertyPath: m_Name
       value: HomeBeast
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736538137534755591, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
+      propertyPath: _speed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

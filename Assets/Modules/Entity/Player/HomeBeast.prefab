@@ -139,6 +139,7 @@ MonoBehaviour:
   _collider2D: {fileID: 4793709163337768087}
   _rigidbody2D: {fileID: 5144200999356769581}
   _playerController: {fileID: 128105192656286139}
+  _speed: 1
 --- !u!58 &4793709163337768087
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class AnemyController : MonoBehaviourEntity, IReusable
     void Chase()
     {
         transform.position = Vector2.MoveTowards(transform.position, _target.transform.position, _speed * Time.deltaTime);
-        // transform.rotation.SetLookRotation(,)
+        transform.rotation.SetLookRotation(_target.transform.position, Vector3.down);
     }
 
     public void Die() => _anemyGenerator.Release(gameObject);
@@ -61,7 +61,6 @@ public class AnemyController : MonoBehaviourEntity, IReusable
 
     public override void Hitted(EffectPacket effectPacket)
     {
-        Debug.Log($"{gameObject.name} Hitted by {effectPacket.Source.name}");
         HP -= effectPacket.Damage;
         if (HP <= 0) Release();
     }

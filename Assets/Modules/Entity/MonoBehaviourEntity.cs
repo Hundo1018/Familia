@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,5 +9,8 @@ public abstract class MonoBehaviourEntity : MonoBehaviour
     public int MaxHP;
     public int HP;
     public int Alignments;
-    public abstract void Hitted(EffectPacket effectPacket);
+    public virtual void Hitted(EffectPacket effectPacket)
+    {
+        throw new NotImplementedException($"{gameObject.name} hitted by {effectPacket.Source.name}");
+    }
 }
