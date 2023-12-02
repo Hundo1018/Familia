@@ -59,7 +59,7 @@ public class Projectile : MonoBehaviour, IReusable
         transform.position = Vector2.Lerp(transform.position, _target, _lifeTimeMax - _lifeTimeLeft);
         ReleaseCheck(ref _lifeTimeLeft, Time.deltaTime);
     }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         //確定有繼承Entity，以及非友軍才繼續

@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     public event Action<Vector2> AxisChanged;
-
     [SerializeField] private RectTransform _stickField;
     [SerializeField] private RectTransform _stick;
+    [SerializeField] private PlayerController _playerController;
+    [SerializeField] private Button _boardOffButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,8 @@ public class UIController : MonoBehaviour
         InputManager.Instance.TouchEnded += OnTouchEnded;
         InputManager.Instance.TouchOffsetMoved += OnTouchOffsetMoved;
         AxisChanged += InputManager.Instance.OnUIAxisChanged;
+        _playerController.DriveStateChanged += OnDriveStateChange;
+
     }
 
     // Update is called once per frame
@@ -31,6 +35,7 @@ public class UIController : MonoBehaviour
         _stickField.gameObject.SetActive(true);
         _stickField.position = vector2;
     }
+
     void OnTouchOffsetMoved(Vector2 vector2)
     {
         if (vector2.magnitude == 0)
@@ -43,13 +48,23 @@ public class UIController : MonoBehaviour
         _stick.localPosition = vector2;
         var v = vector2 / vector2.magnitude;
         AxisChanged?.Invoke(v);
-
     }
+
     void OnTouchEnded(Vector2 vector2)
     {
         _stick.localPosition = Vector3.zero;
         _stickField.gameObject.SetActive(false);
         OnTouchOffsetMoved(Vector2.zero);
+    }
+
+    public void OnBoardLeave()
+    {
+        _playerController.BoardOff();
+    }
+
+    public void OnDriveStateChange(bool driveState)
+    {
+        _boardOffButton.gameObject.SetActive(driveState);
     }
 
     private void OnDisable()
@@ -58,6 +73,6 @@ public class UIController : MonoBehaviour
         InputManager.Instance.TouchEnded -= OnTouchEnded;
         InputManager.Instance.TouchOffsetMoved -= OnTouchOffsetMoved;
         AxisChanged -= InputManager.Instance.OnUIAxisChanged;
-
+        _playerController.DriveStateChanged -= OnDriveStateChange;
     }
 }

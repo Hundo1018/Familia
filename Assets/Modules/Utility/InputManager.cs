@@ -3,11 +3,29 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviourSingletonPersistent<InputManager>
 {
+    /// <summary>
+    /// 點下去
+    /// </summary>
     public event Action<Vector2> TouchBegan;
+    /// <summary>
+    /// 按住移動
+    /// </summary>
     public event Action<Vector2> TouchMoved;
+    /// <summary>
+    /// 自從按下之後的位移量
+    /// </summary>
     public event Action<Vector2> TouchOffsetMoved;
+    /// <summary>
+    /// 停留
+    /// </summary>
     public event Action<Vector2> TouchStationary;
+    /// <summary>
+    /// 離開
+    /// </summary>
     public event Action<Vector2> TouchEnded;
+    /// <summary>
+    /// 移動向量0~1(根據虛擬搖桿)
+    /// </summary>
     public event Action<Vector2> NormalizedStickMoved;
     private Touch _touch = new();
     private Vector2 _offset = new();

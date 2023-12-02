@@ -9,8 +9,13 @@ public abstract class MonoBehaviourEntity : MonoBehaviour
     public int MaxHP;
     public int HP;
     public int Alignments;
+    public float Speed;
+
+
+
     public virtual void Hitted(EffectPacket effectPacket)
     {
         throw new NotImplementedException($"{gameObject.name} hitted by {effectPacket.Source.name}");
     }
+
 }

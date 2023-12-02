@@ -1,39 +1,59 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
+using Unity.Collections;
+using System;
 
 public class HomeBeastController : MonoBehaviourEntity
 {
-    [SerializeField] private CircleCollider2D _collider2D;
     [SerializeField] private Rigidbody2D _rigidbody2D;
-    [SerializeField] private PlayerController _playerController;
-    [SerializeField] private float _speed;
-    private Vector2 _moveDirection;
+    [SerializeField] private List<PlayerController> _passengers;
+    
+    public PlayerController Driver = null;
+
     // Start is called before the first frame update
     void Start()
     {
-        InputManager.Instance.NormalizedStickMoved += SetMoveDirection;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
     }
 
     public override void Hitted(EffectPacket effectPacket)
     {
     }
 
-    void SetMoveDirection(Vector2 vector2)
+    public void OnDrive(Vector2 vector2)
     {
-        _moveDirection = vector2;
+
     }
-    void Move()
+
+    /// <summary>
+    /// 登上
+    /// </summary>
+    /// <param name="playerController"></param>
+    /// <returns>是否成為駕駛員</returns>
+    public bool TryOnBoard(in PlayerController playerController)
     {
-        if(_moveDirection.magnitude == 0)
-            return;
-        transform.Translate(_speed * Time.deltaTime * _moveDirection);
+        _passengers.Add(Driver);
+        if (Driver == null)
+        {
+            Driver = playerController;
+            playerController.Driving += OnDrive;
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryOffBoard(in PlayerController playerController)
+    {
+        if (playerController == Driver)
+        {
+            Driver = null;
+            playerController.Driving -= OnDrive;
+        }
+        return _passengers.Remove(playerController);
     }
 }
