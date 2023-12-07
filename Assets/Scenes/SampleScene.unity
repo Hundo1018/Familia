@@ -590,6 +590,37 @@ MonoBehaviour:
   _stick: {fileID: 1252489105}
   _playerController: {fileID: 712334463}
   _boardOffButton: {fileID: 466334476}
+--- !u!1 &909042283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 909042284}
+  m_Layer: 0
+  m_Name: Sentry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &909042284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909042283}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1885107568}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &942303002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,6 +1276,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6386128959240366748, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
   m_PrefabInstance: {fileID: 4467444080398237343}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1885107568 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5224383665453615306, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
+  m_PrefabInstance: {fileID: 4467444080398237343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4467444080398237343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1297,9 +1333,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: HomeBeast
       objectReference: {fileID: 0}
+    - target: {fileID: 6736538137534755591, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
+      propertyPath: _sentries.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736538137534755591, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
+      propertyPath: _passengers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736538137534755591, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
+      propertyPath: _sentries.Array.data[0]
+      value: 
+      objectReference: {fileID: 909042284}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5224383665453615306, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 909042284}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f3b1fc714015d445b9f25e16004164d, type: 3}
 --- !u!1660057539 &9223372036854775807

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviourEntity
 {
@@ -79,8 +80,13 @@ public class PlayerController : MonoBehaviourEntity
         _homeBeast = homeBeast;
         //TODO: 或許可以跑個進度條再進去
         InputManager.Instance.NormalizedStickMoved -= OnSetMoveDirection;
-        if (homeBeast.TryOnBoard(this))
+        if (homeBeast.TryOnBoard(this, out Transform sentry))
+        {
             DriveStateChanged?.Invoke(true);
+            transform.position = sentry.position;
+            transform.parent = homeBeast.transform;
+            OnSetMoveDirection(Vector2.zero);
+        }
     }
 
     /// <summary>
