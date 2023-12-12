@@ -35,6 +35,8 @@ public class AnemyPool : MonoBehaviourPool<AnemyController>
         _startTime = (int)Time.time;
     }
 
+     
+
     void Start()
     {
         _startTime = (int)Time.time;

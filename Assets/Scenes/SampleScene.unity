@@ -441,8 +441,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1565944250371312420, guid: 29bd72c017c7cc24a95d9930948b6c8c, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565944250371312420, guid: 29bd72c017c7cc24a95d9930948b6c8c, type: 3}
       propertyPath: m_GravityScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565944250371312420, guid: 29bd72c017c7cc24a95d9930948b6c8c, type: 3}
+      propertyPath: m_UseFullKinematicContacts
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7282597236016924081, guid: 29bd72c017c7cc24a95d9930948b6c8c, type: 3}
       propertyPath: Speed
