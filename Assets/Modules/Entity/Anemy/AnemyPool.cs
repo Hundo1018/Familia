@@ -11,11 +11,13 @@ public class AnemyPool : MonoBehaviourPool<AnemyController>
     [SerializeField] private int _maxBatchSize;
     [SerializeField] private int _maxSize;
     [SerializeField] private float _interval;
+    [SerializeField] private int _countActive;
     private float _startTime;
 
     // Update is called once per frame
     void Update()
     {
+        _countActive = CountActive;
         float currentTime = Time.time;
         //時間未到
         if (currentTime - _startTime <= _interval)
@@ -29,7 +31,8 @@ public class AnemyPool : MonoBehaviourPool<AnemyController>
         for (int i = 0; i < amount; i++)
         {
             Vector2 position = (Vector2)transform.position + Random.insideUnitCircle * _circleRange.radius;
-            Get(position, _target);
+            var go = Get(position, _target);
+            go.transform.parent = _target.transform;
         }
         //生成後時間歸零
         _startTime = (int)Time.time;

@@ -26,17 +26,23 @@ public class HomeBeastController : MonoBehaviourEntity
     {
     }
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        List<Collider2D> collider2Ds = new();
+        int i = _rigidbody2D.GetAttachedColliders(collider2Ds);
+        Debug.Log(i);
+    }
+
     public void OnDrive(Vector2 vector2)
     {
 
     }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="playerController"></param>
-/// <param name="sentry">崗位位置</param>
-/// <returns>是否成為駕駛員</returns>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerController"></param>
+    /// <param name="sentry">崗位位置</param>
+    /// <returns>是否成為駕駛員</returns>
     public bool TryOnBoard(in PlayerController playerController, out Transform sentry)
     {
         _passengers.Add(Driver);
